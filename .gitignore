@@ -1,0 +1,11 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.csproj.user
+
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
