@@ -1,3 +1,4 @@
+using Library.Application.Extensions;
 using Library.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddValidation();
 
 var app = builder.Build();
 

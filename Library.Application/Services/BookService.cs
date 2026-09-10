@@ -50,7 +50,7 @@ namespace Library.Application.Services
             return _mapper.Map<List<BookResponseDto>>(books);
         }
 
-        public async Task<BookResponseDto?> GetBookByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<BookResponseDto> GetBookByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var book = await _repository.GetBookById(id, cancellationToken);
 
