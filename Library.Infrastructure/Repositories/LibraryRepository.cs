@@ -2,9 +2,6 @@
 using Library.Domain.Interfaces;
 using Library.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Library.Infrastructure.Repositories
 {
