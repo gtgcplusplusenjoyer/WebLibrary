@@ -1,5 +1,5 @@
 <Solution>
-  <Project Path="Library.API/Library.API.csproj" />
+  <Project Path="Library.API/Library.API.csproj" Id="b2a28310-8769-4fd4-8264-3247c39b365a" />
   <Project Path="Library.Application/Library.Application.csproj" />
   <Project Path="Library.Domain/Library.Domain.csproj" />
   <Project Path="Library.Infrastructure/Library.Infrastructure.csproj" />

@@ -1,17 +1,26 @@
-﻿using Library.Domain.Interfaces;
+﻿using Humanizer.Configuration;
+using Library.Domain.Interfaces;
+using Library.Infrastructure.Context;
 using Library.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace Library.Infrastructure.Extensions
 {
     public static class AddInfrastructureExtension
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ILibraryRepository, LibraryRepository>();
+
+            services.AddDbContext<LibraryDbContext>(opt =>
+            {
+                opt.UseNpgsql(configuration.GetConnectionString(nameof(LibraryDbContext)));
+            });
 
             return services;
         }
