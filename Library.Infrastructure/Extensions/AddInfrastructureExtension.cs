@@ -1,13 +1,9 @@
-﻿using Humanizer.Configuration;
-using Library.Domain.Interfaces;
+﻿using Library.Domain.Interfaces;
 using Library.Infrastructure.Context;
 using Library.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace Library.Infrastructure.Extensions
 {

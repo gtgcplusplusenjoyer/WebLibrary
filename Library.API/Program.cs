@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddValidation();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
