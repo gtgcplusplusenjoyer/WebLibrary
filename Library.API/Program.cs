@@ -1,3 +1,4 @@
+using Library.API.Extensions;
 using Library.Application.Extensions;
 using Library.Infrastructure.Extensions;
 
@@ -13,11 +14,15 @@ builder.Services.AddApplication();
 
 var app = builder.Build();
 
+app.UseExceptionHandlingMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
