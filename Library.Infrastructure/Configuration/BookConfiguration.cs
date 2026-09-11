@@ -33,8 +33,7 @@ namespace Library.Infrastructure.Configuration
                 .HasDefaultValue(1);
 
             builder.Property(b => b.CreatedAt)
-                .IsRequired()
-                .HasDefaultValue(DateTime.UtcNow); 
+                .IsRequired();
         }
     }
 }
