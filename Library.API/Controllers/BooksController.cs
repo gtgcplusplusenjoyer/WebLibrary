@@ -31,9 +31,26 @@ namespace Library.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllBooks(CancellationToken cancellationToken,
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var books = await _service.GetAllBooksAsync(cancellationToken);
+            if(pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            if(pageSize < 5)
+            {
+                pageSize = 5;
+            }
+            else if(pageSize> 50)
+            {
+                pageSize = 50;
+            }
+            
+
+            var books = await _service.GetAllBooksAsync(cancellationToken, pageNumber, pageSize);
 
             return Ok(books);
         }

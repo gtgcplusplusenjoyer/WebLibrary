@@ -25,10 +25,13 @@ namespace Library.Infrastructure.Repositories
             _books.Remove(book);
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooks(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Book>> GetAllBooks(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = int.MaxValue)
         {
             return await _books
                 .AsNoTracking()
+                .OrderBy(f => f.Title) 
+                .Skip((pageNumber - 1) * pageSize)
+                .Take( pageSize)
                 .ToListAsync();
         }
 
@@ -45,6 +48,6 @@ namespace Library.Infrastructure.Repositories
         public void Update(Book book)
         {
             _books.Update(book);
-        }
+        } 
     }
 }

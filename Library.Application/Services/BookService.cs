@@ -43,9 +43,9 @@ namespace Library.Application.Services
             await _repository.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<BookResponseDto>> GetAllBooksAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<BookResponseDto>> GetAllBooksAsync(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = int.MaxValue)
         {
-            var books = await _repository.GetAllBooks(cancellationToken);
+            var books = await _repository.GetAllBooks(cancellationToken, pageNumber, pageSize);
 
             return _mapper.Map<List<BookResponseDto>>(books);
         }
