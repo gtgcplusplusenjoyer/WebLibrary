@@ -16,7 +16,7 @@ namespace Library.Application.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<BookResponseDto> CreateBookAsync(CreateBookDto createBookDto, CancellationToken cancellationToken)
+        public async Task<BookResponseDto> CreateBookAsync(CreateBookDto createBookDto, CancellationToken cancellationToken = default)
         {
             var book = _mapper.Map<Book>(createBookDto);
 
@@ -30,7 +30,7 @@ namespace Library.Application.Services
             return _mapper.Map<BookResponseDto>(book);
         }
 
-        public async Task DeleteBookAsync(Guid id, CancellationToken cancellationToken)
+        public async Task DeleteBookAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var book = await _repository.GetBookById(id, cancellationToken);
 
@@ -43,9 +43,12 @@ namespace Library.Application.Services
             await _repository.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<BookResponseDto>> GetAllBooksAsync(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = int.MaxValue)
+        public async Task<IEnumerable<BookResponseDto>> GetAllBooksAsync(
+            int pageNumber = 1,
+            int pageSize = int.MaxValue,
+            CancellationToken cancellationToken = default)
         {
-            var books = await _repository.GetAllBooks(cancellationToken, pageNumber, pageSize);
+            var books = await _repository.GetAllBooks(pageNumber, pageSize, cancellationToken);
 
             return _mapper.Map<List<BookResponseDto>>(books);
         }

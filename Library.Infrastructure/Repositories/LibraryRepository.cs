@@ -15,7 +15,7 @@ namespace Library.Infrastructure.Repositories
             _books = _context.Set<Book>();
         }
 
-        public async Task Add(Book book, CancellationToken cancellationToken)
+        public async Task Add(Book book, CancellationToken cancellationToken = default)
         {
             await _books.AddAsync(book, cancellationToken);
         }
@@ -25,22 +25,25 @@ namespace Library.Infrastructure.Repositories
             _books.Remove(book);
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooks(CancellationToken cancellationToken, int pageNumber = 1, int pageSize = int.MaxValue)
+        public async Task<IEnumerable<Book>> GetAllBooks(
+            int pageNumber = 1,
+            int pageSize = int.MaxValue,
+            CancellationToken cancellationToken = default)
         {
             return await _books
                 .AsNoTracking()
                 .OrderBy(f => f.Title) 
                 .Skip((pageNumber - 1) * pageSize)
                 .Take( pageSize)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<Book?> GetBookById(Guid id, CancellationToken cancellationToken)
+        public async Task<Book?> GetBookById(Guid id, CancellationToken cancellationToken = default)
         {
             return await _books.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
         }
 
-        public async Task SaveChangesAsync(CancellationToken cancellationToken)
+        public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             await _context.SaveChangesAsync(cancellationToken);
         }

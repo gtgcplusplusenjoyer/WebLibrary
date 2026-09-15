@@ -15,7 +15,7 @@ namespace Library.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook([FromBody] CreateBookDto createBookDto, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookDto createBookDto, CancellationToken cancellationToken = default)
         {
             var book = await _service.CreateBookAsync(createBookDto, cancellationToken);
 
@@ -23,7 +23,7 @@ namespace Library.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById(Guid id,CancellationToken cancellationToken)
+        public async Task<IActionResult> GetBookById(Guid id,CancellationToken cancellationToken = default)
         {
             var book = await _service.GetBookByIdAsync(id, cancellationToken);
 
@@ -31,18 +31,19 @@ namespace Library.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBooks(CancellationToken cancellationToken,
+        public async Task<IActionResult> GetAllBooks(
             [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10)
+            [FromQuery] int pageSize = 10,
+            CancellationToken cancellationToken = default)
         {
             if(pageNumber < 1)
             {
                 pageNumber = 1;
             }
 
-            if(pageSize < 5)
+            if(pageSize < 1)
             {
-                pageSize = 5;
+                pageSize = 1;
             }
             else if(pageSize> 50)
             {
@@ -50,7 +51,7 @@ namespace Library.API.Controllers
             }
             
 
-            var books = await _service.GetAllBooksAsync(cancellationToken, pageNumber, pageSize);
+            var books = await _service.GetAllBooksAsync(pageNumber, pageSize,cancellationToken);
 
             return Ok(books);
         }
@@ -58,7 +59,7 @@ namespace Library.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(Guid id,
             [FromBody] UpdateBookDto updateBookDto,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
         {
             var book = await _service.UpdateBookAsync(id, updateBookDto, cancellationToken);
 
@@ -66,7 +67,7 @@ namespace Library.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteBook(Guid id, CancellationToken cancellationToken = default)
         {
             await _service.DeleteBookAsync(id, cancellationToken);
 
