@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Library.Infrastructure.Configuration
 {
-    internal class BookConfiguration : IEntityTypeConfiguration<Book>
+    public class BookConfiguration : IEntityTypeConfiguration<Book>
     {
         public void Configure(EntityTypeBuilder<Book> builder)
-        {  
+        {
+            builder.ToTable("Books");
+
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.Id)
@@ -34,6 +36,11 @@ namespace Library.Infrastructure.Configuration
 
             builder.Property(b => b.CreatedAt)
                 .IsRequired();
+
+            builder.HasMany(b=>b.BookAuthors)
+                .WithOne(ba=>ba.Book)
+                .HasForeignKey(ba=>ba.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
