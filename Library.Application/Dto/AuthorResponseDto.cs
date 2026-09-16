@@ -1,6 +1,6 @@
 ﻿namespace Library.Application.Dto
 {
-    public class AuthorResponseDto(
+    public record AuthorResponseDto(
         Guid Id,
         DateTime CreatedAt,
         string FirstName,

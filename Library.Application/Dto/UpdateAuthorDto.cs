@@ -1,4 +1,4 @@
 ﻿namespace Library.Application.Dto
 {
-    public class UpdateAuthorDto(string FirstName, string LastName, string? Biography);
+    public record UpdateAuthorDto(string FirstName, string LastName, string? Biography);
 }

@@ -43,6 +43,7 @@ namespace Library.Infrastructure.Repositories
         public async Task<IEnumerable<Author>> GetByIds(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
         {
             return await _authors
+                .AsNoTracking()
                 .Where(a => ids.Contains(a.Id))
                 .ToListAsync(cancellationToken);
         }
