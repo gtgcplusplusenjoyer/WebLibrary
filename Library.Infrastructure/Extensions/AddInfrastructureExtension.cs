@@ -12,6 +12,7 @@ namespace Library.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ILibraryRepository, LibraryRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
 
             services.AddDbContext<LibraryDbContext>(opt =>
             {
