@@ -12,6 +12,8 @@ namespace Library.Application.Extensions
         {
             services.AddScoped<IValidator<CreateBookDto>, CreateBookDtoValidator>();
             services.AddScoped<IValidator<UpdateBookDto>, UpdateBookDtoValidator>();
+            services.AddScoped<IValidator<CreateAuthorDto>, CreateAuthorDtoValidator>();
+            services.AddScoped<IValidator<UpdateAuthorDto>, UpdateAuthorDtoValidator>();
 
             services.AddFluentValidationAutoValidation();
 
