@@ -6,5 +6,6 @@
         string Publisher,
         string? Description,
         int TotalCopies,
-        int AvailableCopies);
+        int AvailableCopies,
+        List<AuthorResponseDto> Authors);
 }
