@@ -9,7 +9,8 @@ namespace Library.Application.Mapper
         public AuthorMapper()
         {
             CreateMap<CreateAuthorDto, Author>();
-
+            CreateMap<UpdateBookDto, Author>();
+            CreateMap<Author, AuthorResponseDto>();
         }
     }
 }

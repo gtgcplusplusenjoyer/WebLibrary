@@ -45,8 +45,8 @@ namespace Library.Application.Services
         }
 
         public async Task<IEnumerable<AuthorResponseDto>> GetAllAuthorsAsync(
-            int pageNumber,
-            int pageSize,
+            int pageNumber = 1,
+            int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
             var authors = await _repository.GetAll(pageNumber, pageSize, cancellationToken);
@@ -60,7 +60,7 @@ namespace Library.Application.Services
 
             if(author == null)
             {
-                throw new NotFoundException($"Author with Id: {id} is not found");
+                throw new NotFoundException($"Author with Id: {id} not found");
             }
 
             return _mapper.Map<AuthorResponseDto>(author);
@@ -74,7 +74,7 @@ namespace Library.Application.Services
 
             if (author == null)
             {
-                throw new NotFoundException($"Author with Id: {id} is not found");
+                throw new NotFoundException($"Author with Id: {id} not found");
             }
 
             author.FirstName = updateAuthorDto.FirstName;
