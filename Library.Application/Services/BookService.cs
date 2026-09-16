@@ -9,11 +9,13 @@ namespace Library.Application.Services
 {
     public class BookService : IBookService
     {
-        private readonly ILibraryRepository _repository;
+        private readonly ILibraryRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
-        public BookService(ILibraryRepository repository, IMapper mapper)
+        public BookService(ILibraryRepository bookRepository, IAuthorRepository authorRepository, IMapper mapper)
         {
-            _repository = repository;
+            _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
             _mapper = mapper;
         }
         public async Task<BookResponseDto> CreateBookAsync(CreateBookDto createBookDto, CancellationToken cancellationToken = default)
@@ -24,23 +26,39 @@ namespace Library.Application.Services
             book.CreatedAt = DateTime.UtcNow;
             book.AvailableCopies = book.TotalCopies;
 
-            await _repository.Add(book, cancellationToken);
-            await _repository.SaveChangesAsync(cancellationToken);
+            if(createBookDto.AuthorIds != null && createBookDto.AuthorIds.Any())
+            {
+                var authors = await _authorRepository.GetByIds(createBookDto.AuthorIds, cancellationToken);
+
+                foreach(var a in authors)
+                {
+                    book.BookAuthors.Add(new BookAuthor
+                    {
+                        Author = a,
+                        AuthorId = a.Id,
+                        Book = book,
+                        BookId = book.Id
+                    });
+                }
+            }
+
+            await _bookRepository.Add(book, cancellationToken);
+            await _bookRepository.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<BookResponseDto>(book);
         }
 
         public async Task DeleteBookAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var book = await _repository.GetBookById(id, cancellationToken);
+            var book = await _bookRepository.GetBookById(id, cancellationToken);
 
             if(book == null)
             {
                 throw new NotFoundException($"Book with Id: {id} not found");
             }
 
-            _repository.DeleteBook(book);
-            await _repository.SaveChangesAsync(cancellationToken);
+            _bookRepository.DeleteBook(book);
+            await _bookRepository.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<BookResponseDto>> GetAllBooksAsync(
@@ -48,14 +66,14 @@ namespace Library.Application.Services
             int pageSize = int.MaxValue,
             CancellationToken cancellationToken = default)
         {
-            var books = await _repository.GetAllBooks(pageNumber, pageSize, cancellationToken);
+            var books = await _bookRepository.GetAllBooks(pageNumber, pageSize, cancellationToken);
 
             return _mapper.Map<List<BookResponseDto>>(books);
         }
 
         public async Task<BookResponseDto> GetBookByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var book = await _repository.GetBookById(id, cancellationToken);
+            var book = await _bookRepository.GetBookById(id, cancellationToken);
 
             if (book == null)
             {
@@ -67,7 +85,7 @@ namespace Library.Application.Services
 
         public async Task<BookResponseDto> UpdateBookAsync(Guid id, UpdateBookDto updateBookDto, CancellationToken cancellationToken)
         {
-            var book = await _repository.GetBookById(id, cancellationToken);
+            var book = await _bookRepository.GetBookById(id, cancellationToken);
 
             if (book == null)
             {
@@ -79,8 +97,26 @@ namespace Library.Application.Services
             book.Description = updateBookDto.Description;
             book.TotalCopies = updateBookDto.TotalCopies;
 
-            _repository.Update(book);
-            await _repository.SaveChangesAsync(cancellationToken);
+            if (updateBookDto.AuthorIds != null)
+            {
+                book.BookAuthors.Clear();
+
+                var authors = await _authorRepository.GetByIds(updateBookDto.AuthorIds, cancellationToken);
+
+                foreach (var a in authors)
+                {
+                    book.BookAuthors.Add(new BookAuthor
+                    {
+                        Author = a,
+                        AuthorId = a.Id,
+                        Book = book,
+                        BookId = book.Id
+                    });
+                }
+            }
+
+            _bookRepository.Update(book);
+            await _bookRepository.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<BookResponseDto>(book);
         }
