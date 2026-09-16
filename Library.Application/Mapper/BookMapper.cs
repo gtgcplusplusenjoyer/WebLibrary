@@ -8,11 +8,9 @@ namespace Library.Application.Mapper
     {
         public BookMapper()
         {
-            CreateMap<CreateBookDto, Book>()
-                .ForCtorParam("AuthorIds", opt => opt.MapFrom(src => src.AuthorIds));
+            CreateMap<CreateBookDto, Book>();
 
-            CreateMap<UpdateBookDto, Book>()
-                .ForCtorParam("AuthorIds", opt => opt.MapFrom(src => src.AuthorIds));
+            CreateMap<UpdateBookDto, Book>();
 
             CreateMap<Book, BookResponseDto>()
                 .ForMember(dest => dest.Authors, opt =>

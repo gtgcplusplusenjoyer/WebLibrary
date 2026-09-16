@@ -40,7 +40,10 @@ namespace Library.Infrastructure.Repositories
 
         public async Task<Book?> GetBookById(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _books.FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
+            return await _books
+                .Include(b =>b.BookAuthors)
+                .ThenInclude(ba=>ba.Author)
+                .FirstOrDefaultAsync(b => b.Id == id, cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
