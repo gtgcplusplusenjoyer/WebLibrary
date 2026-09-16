@@ -30,7 +30,7 @@ namespace Library.API.Controllers
             [FromQuery] int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
-            if(pageNumber < 0)
+            if(pageNumber < 1)
             {
                 pageNumber = 1;
             }
