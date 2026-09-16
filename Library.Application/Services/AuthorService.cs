@@ -36,7 +36,7 @@ namespace Library.Application.Services
 
             if(author == null)
             {
-                throw new NotFoundException($"Author with Id: {id} is not found");
+                throw new NotFoundException($"Author with Id: {id} not found");
             }
 
             _repository.DeleteAuthor(author);
