@@ -38,7 +38,9 @@ namespace Library.Tests
             };
 
             _repositoryMock
-                .Setup(r => r.GetAllBooks(It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetAllBooks(It.IsAny<int>(),
+                    It.IsAny<int>(), 
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
 
             _mapperMock
@@ -46,7 +48,9 @@ namespace Library.Tests
                 .Returns(bookDtos);
 
             // Act (Действие)
-            var result = await _service.GetAllBooksAsync(CancellationToken.None);
+            var result = await _service.GetAllBooksAsync(
+                    It.IsAny<int>(),
+                    It.IsAny<int>(), CancellationToken.None);
 
             // Assert (Проверка)
             result.Should().NotBeNull();
@@ -61,7 +65,10 @@ namespace Library.Tests
             var bookDtos = new List<BookResponseDto>();
 
             _repositoryMock
-                .Setup(r => r.GetAllBooks(It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetAllBooks(
+                    It.IsAny<int>(),
+                    It.IsAny<int>(),
+                    It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
 
             _mapperMock
@@ -69,7 +76,10 @@ namespace Library.Tests
                 .Returns(bookDtos);
 
 
-            var result = await _service.GetAllBooksAsync(CancellationToken.None);
+            var result = await _service.GetAllBooksAsync(
+                    It.IsAny<int>(),
+                    It.IsAny<int>(), 
+                    CancellationToken.None);
 
 
             result.Should().NotBeNull();
