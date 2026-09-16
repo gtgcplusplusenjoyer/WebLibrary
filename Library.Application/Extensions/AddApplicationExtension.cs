@@ -10,7 +10,9 @@ namespace Library.Application.Extensions
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             services.AddAutoMapper(cfg => { }, typeof(BookMapper));
+            services.AddAutoMapper(cfg => { }, typeof(AuthorMapper));
 
             return services;
         }
