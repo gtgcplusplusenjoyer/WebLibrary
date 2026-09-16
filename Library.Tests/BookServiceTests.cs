@@ -13,12 +13,14 @@ namespace Library.Tests
     {
         private readonly Mock<ILibraryRepository> _repositoryMock;
         private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<IAuthorRepository> _authorRepositoryMock;
         private readonly BookService _service;
         public BookServiceTests()
         {
             _repositoryMock = new Mock<ILibraryRepository>();
             _mapperMock = new Mock<IMapper>();
-            _service = new BookService(_repositoryMock.Object, _mapperMock.Object);
+            _authorRepositoryMock = new Mock<IAuthorRepository>();
+            _service = new BookService(_repositoryMock.Object, _authorRepositoryMock.Object, _mapperMock.Object); 
         }
 
         [Fact]
@@ -33,13 +35,14 @@ namespace Library.Tests
 
             var bookDtos = new List<BookResponseDto>
             {
-                new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Война и мир", "АСТ", null, 1, 1),
-                new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Преступление и наказание", "Эксмо", null, 1, 1)
+                new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Война и мир", "АСТ", null, 1, 1, new List<AuthorResponseDto>()),
+                new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Преступление и наказание", "Эксмо", null, 1, 1,
+                    new List<AuthorResponseDto>())
             };
 
             _repositoryMock
-                .Setup(r => r.GetAllBooks(It.IsAny<int>(),
-                    It.IsAny<int>(), 
+                .Setup(r => r.GetAllBooks(1,
+                    10, 
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
 
@@ -49,8 +52,9 @@ namespace Library.Tests
 
             // Act (Действие)
             var result = await _service.GetAllBooksAsync(
-                    It.IsAny<int>(),
-                    It.IsAny<int>(), CancellationToken.None);
+                    1,
+                    10,
+                    CancellationToken.None);
 
             // Assert (Проверка)
             result.Should().NotBeNull();
@@ -66,8 +70,8 @@ namespace Library.Tests
 
             _repositoryMock
                 .Setup(r => r.GetAllBooks(
-                    It.IsAny<int>(),
-                    It.IsAny<int>(),
+                    1,
+                    10,
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
 
@@ -77,8 +81,8 @@ namespace Library.Tests
 
 
             var result = await _service.GetAllBooksAsync(
-                    It.IsAny<int>(),
-                    It.IsAny<int>(), 
+                    1,
+                    10, 
                     CancellationToken.None);
 
 
@@ -103,7 +107,7 @@ namespace Library.Tests
 
             var bookResponseDto = new BookResponseDto
             (
-                 bookId, DateTime.UtcNow, "Hello world", "Dantes", "Interesting book", 3, 2
+                 bookId, DateTime.UtcNow, "Hello world", "Dantes", "Interesting book", 3, 2, new List<AuthorResponseDto>()
             );
 
             _repositoryMock
@@ -155,7 +159,8 @@ namespace Library.Tests
                 TotalCopies = 1
             };
 
-            var bookResponseDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publisher", "desc", 1, 1);
+            var bookResponseDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publisher", "desc", 1, 1,
+                new List<AuthorResponseDto>());
 
             _mapperMock
                 .Setup(m => m.Map<Book>(createBookDto))
@@ -186,7 +191,8 @@ namespace Library.Tests
                 TotalCopies = 1
             };
 
-            var bookResponseDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publisher", "desc", 1, 1);
+            var bookResponseDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publisher", "desc", 1, 1,
+                new List<AuthorResponseDto>());
 
             _mapperMock
                 .Setup(m => m.Map<Book>(createBookDto))
@@ -215,7 +221,8 @@ namespace Library.Tests
                 TotalCopies = 1
             };
 
-            var responseBookDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publi", null, 1, 1);
+            var responseBookDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publi", null, 1, 1,
+                new List<AuthorResponseDto>());
 
             _mapperMock
                 .Setup(m => m.Map<Book>(createBookDto))
@@ -244,7 +251,8 @@ namespace Library.Tests
                 TotalCopies = 1
             };
 
-            var responseBookDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publi", null, 1, 1);
+            var responseBookDto = new BookResponseDto(Guid.NewGuid(), DateTime.UtcNow, "Title", "Publi", null, 1, 1,
+                new List<AuthorResponseDto>());
 
             _mapperMock
                 .Setup(m => m.Map<Book>(createBookDto))
@@ -325,7 +333,7 @@ namespace Library.Tests
             var updateDto = new UpdateBookDto("Новое название", "Эксмо", "Новое описание", 10);
 
             var updatedDto = new BookResponseDto(
-        bookId, DateTime.UtcNow, "Новое название", "Эксмо", "Новое описание", 10, 3);
+        bookId, DateTime.UtcNow, "Новое название", "Эксмо", "Новое описание", 10, 3, new List<AuthorResponseDto>());
 
             _repositoryMock
                 .Setup(r => r.GetBookById(bookId, CancellationToken.None))
@@ -378,7 +386,7 @@ namespace Library.Tests
 
             var dto = new UpdateBookDto("Новое", "Эксмо", null, 10);
 
-            var responseDto = new BookResponseDto(bookId, DateTime.UtcNow, "Новое", "Эксмо", null, 10, 3);
+            var responseDto = new BookResponseDto(bookId, DateTime.UtcNow, "Новое", "Эксмо", null, 10, 3, new List<AuthorResponseDto>());
 
             _repositoryMock
                 .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
