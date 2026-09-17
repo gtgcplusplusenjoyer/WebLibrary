@@ -7,7 +7,7 @@ using Library.Domain.Entities;
 using Library.Domain.Interfaces;
 using Moq;
 
-namespace Library.Tests
+namespace Library.Tests.Services
 {
     public class BookServiceTests
     {
@@ -401,5 +401,7 @@ namespace Library.Tests
             existingBook.AvailableCopies.Should().Be(3);
             existingBook.TotalCopies.Should().Be(10);
         }
+
+         
     }
 }
