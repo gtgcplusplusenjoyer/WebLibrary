@@ -28,6 +28,7 @@ namespace Library.Infrastructure.Repositories
         {
             return await _loans
                 .AsNoTracking()
+                .Include(l => l.Book)
                 .OrderBy(l => l.LoanDate)
                 .Where(l => l.Status == LoanStatus.Active) 
                 .ToListAsync(cancellationToken);
@@ -37,6 +38,7 @@ namespace Library.Infrastructure.Repositories
         {
             return await _loans
                 .AsNoTracking()
+                .Include(l => l.Book)
                 .OrderBy(l => l.LoanDate)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -47,19 +49,23 @@ namespace Library.Infrastructure.Repositories
         {
             return await _loans
                 .AsNoTracking()
+                .Include(l => l.Book)
                 .Where(l => l.BookId == id)
                 .ToListAsync(cancellationToken);
         }
 
         public async Task<Loan?> GetById(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _loans.FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
+            return await _loans
+                .Include(l => l.Book)
+                .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<Loan>> GetOverdueLoans(CancellationToken cancellationToken = default)
         {
             return await _loans
                 .AsNoTracking()
+                .Include(l => l.Book)
                 .OrderBy(l => l.DueDate)
                 .Where(l => l.Status == LoanStatus.Active && l.DueDate < DateTime.UtcNow)
                 .ToListAsync(cancellationToken);
