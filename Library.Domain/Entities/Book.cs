@@ -8,5 +8,6 @@
         public int TotalCopies { get; set; } = 1; 
         public int AvailableCopies { get; set; } = 1;
         public ICollection<BookAuthor> BookAuthors { get; set; } = new List<BookAuthor>();
+        public ICollection<Loan> Loans { get; set; } = new List<Loan>();
     }
 }
