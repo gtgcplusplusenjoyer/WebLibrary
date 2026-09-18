@@ -11,8 +11,9 @@ namespace Library.Application.Extensions
         {
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IAuthorService, AuthorService>();
-            services.AddAutoMapper(cfg => { }, typeof(BookMapper));
-            services.AddAutoMapper(cfg => { }, typeof(AuthorMapper));
+            services.AddScoped<ILoanService, LoanService>();
+
+            services.AddAutoMapper(cfg => { }, typeof(BookMapper), typeof(AuthorMapper), typeof(LoanMapper));
 
             return services;
         }
