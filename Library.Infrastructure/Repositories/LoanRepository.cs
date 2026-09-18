@@ -61,8 +61,7 @@ namespace Library.Infrastructure.Repositories
             return await _loans
                 .AsNoTracking()
                 .OrderBy(l => l.DueDate)
-                .Where(l => l.Status == LoanStatus.Active
-                 && l.DueDate < DateTime.UtcNow)
+                .Where(l => l.Status == LoanStatus.Active && l.DueDate < DateTime.UtcNow)
                 .ToListAsync(cancellationToken);
         }
 
