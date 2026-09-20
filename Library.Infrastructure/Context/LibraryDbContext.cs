@@ -9,6 +9,7 @@ namespace Library.Infrastructure.Context
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
+        public DbSet<Loan> Loans { get; set; }
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,6 +19,7 @@ namespace Library.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new BookConfiguration());
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookAuthorConfiguration());
+            modelBuilder.ApplyConfiguration(new LoanConfiguration());
         }
 
     }

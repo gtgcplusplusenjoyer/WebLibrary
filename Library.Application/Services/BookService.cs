@@ -33,10 +33,8 @@ namespace Library.Application.Services
                 foreach(var a in authors)
                 {
                     book.BookAuthors.Add(new BookAuthor
-                    {
-                        Author = a,
-                        AuthorId = a.Id,
-                        Book = book,
+                    { 
+                        AuthorId = a.Id, 
                         BookId = book.Id
                     });
                 }
@@ -106,10 +104,8 @@ namespace Library.Application.Services
                 foreach (var a in authors)
                 {
                     book.BookAuthors.Add(new BookAuthor
-                    {
-                        Author = a,
-                        AuthorId = a.Id,
-                        Book = book,
+                    { 
+                        AuthorId = a.Id, 
                         BookId = book.Id
                     });
                 }

@@ -13,6 +13,7 @@ namespace Library.Infrastructure.Extensions
         {
             services.AddScoped<ILibraryRepository, LibraryRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<ILoanRepository, LoanRepository>();
 
             services.AddDbContext<LibraryDbContext>(opt =>
             {

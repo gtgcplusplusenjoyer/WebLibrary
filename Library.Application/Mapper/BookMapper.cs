@@ -13,8 +13,15 @@ namespace Library.Application.Mapper
             CreateMap<UpdateBookDto, Book>();
 
             CreateMap<Book, BookResponseDto>()
-                .ForMember(dest => dest.Authors, opt =>
-                opt.MapFrom(src => src.BookAuthors.Select(ba=>ba.Author)));
+                .ForCtorParam("Id", opt => opt.MapFrom(src => src.Id))
+                .ForCtorParam("CreatedAt", opt => opt.MapFrom(src => src.CreatedAt))
+                .ForCtorParam("Title", opt => opt.MapFrom(src => src.Title))
+                .ForCtorParam("Publisher", opt => opt.MapFrom(src => src.Publisher))
+                .ForCtorParam("Description", opt => opt.MapFrom(src => src.Description))
+                .ForCtorParam("TotalCopies", opt => opt.MapFrom(src => src.TotalCopies))
+                .ForCtorParam("AvailableCopies", opt => opt.MapFrom(src => src.AvailableCopies))
+                .ForCtorParam("Authors", opt => opt.MapFrom(src =>
+                src.BookAuthors.Select(ba => ba.Author)));
         }
     }
 }

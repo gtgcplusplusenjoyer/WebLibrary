@@ -32,6 +32,8 @@ namespace Library.Infrastructure.Repositories
         {
             return await _books
                 .AsNoTracking()
+                .Include(b => b.BookAuthors)
+                .ThenInclude(ba => ba.Author)
                 .OrderBy(f => f.Title) 
                 .Skip((pageNumber - 1) * pageSize)
                 .Take( pageSize)
