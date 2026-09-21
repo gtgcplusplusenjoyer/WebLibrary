@@ -149,10 +149,12 @@ namespace Library.Tests.Services
         [Fact]
         public async Task CreateBookAsync_ValidDto_ReturnsBookResponseDto()
         {
+            var id = Guid.NewGuid();
             var createBookDto = new CreateBookDto("Title", "Publisher", "desc", 1);
 
             var book = new Book
             {
+                Id = id,
                 Title = "Title",
                 Publisher = "Publisher",
                 Description = "desc",
@@ -166,10 +168,13 @@ namespace Library.Tests.Services
                 .Setup(m => m.Map<Book>(createBookDto))
                 .Returns(book);
 
+            _repositoryMock
+                .Setup(r => r.GetBookById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(book);
+
             _mapperMock
                 .Setup(m => m.Map<BookResponseDto>(book))
                 .Returns(bookResponseDto);
-
 
             var result = await _service.CreateBookAsync(createBookDto, CancellationToken.None);
 
@@ -181,10 +186,12 @@ namespace Library.Tests.Services
         [Fact]
         public async Task CreateBookAsync_ValidDto_SetsAvailableCopiesEqualsTotalCopies()
         {
+            var id = Guid.NewGuid();
             var createBookDto = new CreateBookDto("Title", "Publisher", "desc", 1);
 
             var book = new Book
             {
+                Id = id,
                 Title = "Title",
                 Publisher = "Publisher",
                 Description = "desc",
@@ -198,12 +205,15 @@ namespace Library.Tests.Services
                 .Setup(m => m.Map<Book>(createBookDto))
                 .Returns(book);
 
+            _repositoryMock
+                .Setup(r => r.GetBookById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(book);
+
             _mapperMock
                 .Setup(m => m.Map<BookResponseDto>(book))
                 .Returns(bookResponseDto);
 
             var result = await _service.CreateBookAsync(createBookDto, CancellationToken.None);
-
 
             result.AvailableCopies.Should().Be(1);
         }
