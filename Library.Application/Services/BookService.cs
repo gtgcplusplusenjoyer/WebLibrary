@@ -43,7 +43,9 @@ namespace Library.Application.Services
             await _bookRepository.Add(book, cancellationToken);
             await _bookRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<BookResponseDto>(book);
+            var createdBook = await _bookRepository.GetBookById(book.Id);
+
+            return _mapper.Map<BookResponseDto>(createdBook);
         }
 
         public async Task DeleteBookAsync(Guid id, CancellationToken cancellationToken = default)
