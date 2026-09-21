@@ -43,7 +43,7 @@ namespace Library.Application.Services
             await _bookRepository.Add(book, cancellationToken);
             await _bookRepository.SaveChangesAsync(cancellationToken);
 
-            var createdBook = await _bookRepository.GetBookById(book.Id);
+            var createdBook = await _bookRepository.GetBookById(book.Id, cancellationToken);
 
             return _mapper.Map<BookResponseDto>(createdBook);
         }
@@ -116,7 +116,9 @@ namespace Library.Application.Services
             _bookRepository.Update(book);
             await _bookRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<BookResponseDto>(book);
+            var updatedBook = await _bookRepository.GetBookById(book.Id, cancellationToken);
+
+            return _mapper.Map<BookResponseDto>(updatedBook);
         }
     }
 }
