@@ -1,6 +1,6 @@
 ﻿using Library.Domain.Enums;
 
-namespace Library.Application.Dto
+namespace Library.Application.Dto.Loan
 {
     public record LoanResponseDto(Guid Id,
         DateTime CreatedAt,

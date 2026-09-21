@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
-using Library.Application.Dto;
+using Library.Application.Dto.Author;
+using Library.Application.Dto.Book;
+using Library.Application.Dto.Loan;
 using Library.Application.Validators;
 using Microsoft.Extensions.DependencyInjection;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;

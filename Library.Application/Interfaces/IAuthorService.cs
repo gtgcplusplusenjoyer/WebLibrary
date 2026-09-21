@@ -1,4 +1,4 @@
-﻿using Library.Application.Dto;
+﻿using Library.Application.Dto.Author;
 
 namespace Library.Application.Interfaces
 {
