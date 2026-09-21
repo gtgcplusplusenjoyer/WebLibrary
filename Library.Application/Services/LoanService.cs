@@ -42,7 +42,9 @@ namespace Library.Application.Services
             await _loanRepository.Add(loan, cancellationToken);
             await _loanRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<LoanResponseDto>(loan);
+            var createdLoan = await _loanRepository.GetById(loan.Id, cancellationToken);
+
+            return _mapper.Map<LoanResponseDto>(createdLoan); 
         }
 
         public async Task<IEnumerable<LoanResponseDto>> GetActiveLoansAsync(CancellationToken cancellationToken = default)
@@ -119,7 +121,9 @@ namespace Library.Application.Services
             _loanRepository.Update(loan);
             await _loanRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<LoanResponseDto>(loan);
+            var updatedLoan = await _loanRepository.GetById(id, cancellationToken);
+
+            return _mapper.Map<LoanResponseDto>(updatedLoan);
         }
 
         public async Task<LoanResponseDto> UpdateLoanAsync(Guid id, UpdateLoanDto updateLoanDto, CancellationToken cancellationToken = default)
@@ -167,7 +171,9 @@ namespace Library.Application.Services
             _loanRepository.Update(loan);
             await _loanRepository.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<LoanResponseDto>(loan);
+            var updatedLoan = await _loanRepository.GetById(id, cancellationToken);
+
+            return _mapper.Map<LoanResponseDto>(updatedLoan); 
         }
     }
 } 
