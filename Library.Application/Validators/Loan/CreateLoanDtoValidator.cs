@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Library.Application.Dto.Loan;
 
-namespace Library.Application.Validators
+namespace Library.Application.Validators.Loan
 {
     public class CreateLoanDtoValidator : AbstractValidator<CreateLoanDto>
     {
