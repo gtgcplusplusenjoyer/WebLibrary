@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.Application.Dto;
+using Library.Application.Dto.Loan;
 using Library.Application.Exceptions;
 using Library.Application.Interfaces;
 using Library.Domain.Entities;

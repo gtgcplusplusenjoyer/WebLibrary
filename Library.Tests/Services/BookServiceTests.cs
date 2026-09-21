@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Library.Application.Dto;
+using Library.Application.Dto.Author;
+using Library.Application.Dto.Book;
 using Library.Application.Exceptions;
 using Library.Application.Services;
 using Library.Domain.Entities;

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Library.Application.Dto;
 using Library.Application.Dto.Loan;
 using Library.Domain.Entities;
 using Library.Domain.Enums;

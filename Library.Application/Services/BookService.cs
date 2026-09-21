@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Library.Application.Dto;
+using Library.Application.Dto.Book;
 using Library.Application.Exceptions;
 using Library.Application.Interfaces;
 using Library.Domain.Entities;
@@ -26,15 +27,15 @@ namespace Library.Application.Services
             book.CreatedAt = DateTime.UtcNow;
             book.AvailableCopies = book.TotalCopies;
 
-            if(createBookDto.AuthorIds != null && createBookDto.AuthorIds.Any())
+            if (createBookDto.AuthorIds != null && createBookDto.AuthorIds.Any())
             {
                 var authors = await _authorRepository.GetByIds(createBookDto.AuthorIds, cancellationToken);
 
-                foreach(var a in authors)
+                foreach (var a in authors)
                 {
                     book.BookAuthors.Add(new BookAuthor
-                    { 
-                        AuthorId = a.Id, 
+                    {
+                        AuthorId = a.Id,
                         BookId = book.Id
                     });
                 }
@@ -52,7 +53,7 @@ namespace Library.Application.Services
         {
             var book = await _bookRepository.GetBookById(id, cancellationToken);
 
-            if(book == null)
+            if (book == null)
             {
                 throw new NotFoundException($"Book with Id: {id} not found");
             }
@@ -106,8 +107,8 @@ namespace Library.Application.Services
                 foreach (var a in authors)
                 {
                     book.BookAuthors.Add(new BookAuthor
-                    { 
-                        AuthorId = a.Id, 
+                    {
+                        AuthorId = a.Id,
                         BookId = book.Id
                     });
                 }

@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
+using Library.Application.Dto;
 using Library.Application.Dto.Author;
 using Library.Application.Dto.Book;
 using Library.Application.Dto.Loan;
+using Library.Application.Validators;
 using Library.Application.Validators.Author;
 using Library.Application.Validators.Book;
 using Library.Application.Validators.Loan;

@@ -1,4 +1,5 @@
-﻿using Library.Application.Dto.Loan;
+﻿using Library.Application.Dto;
+using Library.Application.Dto.Loan;
 using Library.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

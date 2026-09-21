@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Library.Application.Dto;
 using Library.Application.Dto.Book;
 using Library.Domain.Entities;
 
