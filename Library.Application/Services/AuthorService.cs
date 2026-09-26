@@ -33,14 +33,14 @@ namespace Library.Application.Services
 
         public async Task DeleteAuthorAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var author = await _repository.GetAuthorById(id,cancellationToken);
+            var author = await _repository.GetById(id,cancellationToken);
 
             if(author == null)
             {
                 throw new NotFoundException($"Author with Id: {id} not found");
             }
 
-            _repository.DeleteAuthor(author);
+            _repository.Delete(author);
 
             await _repository.SaveChangesAsync(cancellationToken);
         }
@@ -57,7 +57,7 @@ namespace Library.Application.Services
 
         public async Task<AuthorResponseDto> GetAuthorByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var author = await _repository.GetAuthorById(id, cancellationToken);
+            var author = await _repository.GetById(id, cancellationToken);
 
             if(author == null)
             {
@@ -71,7 +71,7 @@ namespace Library.Application.Services
             UpdateAuthorDto updateAuthorDto,
             CancellationToken cancellationToken = default)
         {
-            var author = await _repository.GetAuthorById(id, cancellationToken);
+            var author = await _repository.GetById(id, cancellationToken);
 
             if (author == null)
             {

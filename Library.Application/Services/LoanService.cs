@@ -23,7 +23,7 @@ namespace Library.Application.Services
 
         public async Task<LoanResponseDto> CreateLoanAsync(CreateLoanDto createLoanDto, CancellationToken cancellationToken = default)
         {
-            var book = await _bookRepository.GetBookById(createLoanDto.BookId, cancellationToken);
+            var book = await _bookRepository.GetById(createLoanDto.BookId, cancellationToken);
 
             if (book == null)
             {
@@ -109,7 +109,7 @@ namespace Library.Application.Services
             loan.ReturnDate = DateTime.UtcNow;
             loan.Status = LoanStatus.Returned;
 
-            var book = await _bookRepository.GetBookById(loan.BookId, cancellationToken);
+            var book = await _bookRepository.GetById(loan.BookId, cancellationToken);
 
             if (book == null)
             {
@@ -138,7 +138,7 @@ namespace Library.Application.Services
 
             if(updateLoanDto.BookId != loan.BookId)
             {
-                var oldBook = await _bookRepository.GetBookById(loan.BookId, cancellationToken);
+                var oldBook = await _bookRepository.GetById(loan.BookId, cancellationToken);
 
                 if (oldBook == null)
                 {
@@ -148,7 +148,7 @@ namespace Library.Application.Services
                 oldBook.AvailableCopies++;
                 _bookRepository.Update(oldBook);
 
-                var newBook = await _bookRepository.GetBookById(updateLoanDto.BookId, cancellationToken);
+                var newBook = await _bookRepository.GetById(updateLoanDto.BookId, cancellationToken);
 
                 if (newBook == null)
                 {
