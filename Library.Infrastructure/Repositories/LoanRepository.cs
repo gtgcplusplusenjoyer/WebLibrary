@@ -41,5 +41,9 @@ namespace Library.Infrastructure.Repositories
                 .Where(l => l.Status == LoanStatus.Active && l.DueDate < DateTime.UtcNow)
                 .ToListAsync(cancellationToken);
         }
+        protected override IQueryable<Loan> ApplyIncludes(IQueryable<Loan> query)
+        {
+            return query.Include(l => l.Book);
+        }
     }
 }

@@ -23,8 +23,10 @@ namespace Library.Infrastructure.Repositories
 
         public async Task<IEnumerable<T>> GetAll(int pageNumber = 1, int pageSize = 10, CancellationToken cancellationToken = default)
         {
-            return await _dbSet
-                .AsNoTracking()
+            var query = _dbSet.AsNoTracking();
+            query = ApplyIncludes(query);
+
+            return await query 
                 .OrderBy(e => e.Id)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -33,7 +35,9 @@ namespace Library.Infrastructure.Repositories
 
         public async Task<T?> GetById(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbSet.FirstOrDefaultAsync(e=>e.Id == id, cancellationToken);
+            var query = _dbSet.AsQueryable();
+            query = ApplyIncludes(query);
+            return await query.FirstOrDefaultAsync(e=>e.Id == id, cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -44,6 +48,10 @@ namespace Library.Infrastructure.Repositories
         public void Update(T entity)
         {
             _dbSet.Update(entity);
+        }
+        protected virtual IQueryable<T> ApplyIncludes(IQueryable<T> query)
+        {
+            return query;
         }
     }
 }
