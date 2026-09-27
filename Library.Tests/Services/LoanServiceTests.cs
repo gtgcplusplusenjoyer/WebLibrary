@@ -300,7 +300,7 @@ namespace Library.Tests.Services
                 loan.LoanDate, loan.DueDate, null, LoanStatus.Active);
 
             _bookRepositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -329,7 +329,7 @@ namespace Library.Tests.Services
             var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync((Book?)null);
 
             Func<Task> act = async () =>
@@ -355,7 +355,7 @@ namespace Library.Tests.Services
             var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
-                .Setup(r=>r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r=>r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             Func<Task> act = async () =>
@@ -484,7 +484,7 @@ namespace Library.Tests.Services
                 .ReturnsAsync(returnedLoan);
 
             _bookRepositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -591,11 +591,11 @@ namespace Library.Tests.Services
                 .ReturnsAsync(returnedLoan);
 
             _bookRepositoryMock
-                .Setup(r => r.GetBookById(oldBookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(oldBookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(oldBook);
 
             _bookRepositoryMock
-                .Setup(r => r.GetBookById(newBookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(newBookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(newBook); 
 
             _mapperMock
@@ -665,7 +665,7 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.BookId.Should().Be(bookId);
             _bookRepositoryMock.Verify(
-                r => r.GetBookById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()),
+                r => r.GetById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()),
                 Times.Never);
         }
 

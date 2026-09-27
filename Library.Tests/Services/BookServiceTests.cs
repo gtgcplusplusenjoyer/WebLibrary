@@ -43,7 +43,7 @@ namespace Library.Tests.Services
             };
 
             _repositoryMock
-                .Setup(r => r.GetAllBooks(1,
+                .Setup(r => r.GetAll(1,
                     10, 
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
@@ -71,7 +71,7 @@ namespace Library.Tests.Services
             var bookDtos = new List<BookResponseDto>();
 
             _repositoryMock
-                .Setup(r => r.GetAllBooks(
+                .Setup(r => r.GetAll(
                     1,
                     10,
                     It.IsAny<CancellationToken>()))
@@ -113,7 +113,7 @@ namespace Library.Tests.Services
             );
 
             _repositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -135,7 +135,7 @@ namespace Library.Tests.Services
             var bookId = Guid.NewGuid();
 
             _repositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync((Book?)null);
 
             Func<Task> act = async () =>
@@ -171,7 +171,7 @@ namespace Library.Tests.Services
                 .Returns(book);
 
             _repositoryMock
-                .Setup(r => r.GetBookById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -208,7 +208,7 @@ namespace Library.Tests.Services
                 .Returns(book);
 
             _repositoryMock
-                .Setup(r => r.GetBookById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -295,13 +295,13 @@ namespace Library.Tests.Services
             };
 
             _repositoryMock
-                .Setup(r => r.GetBookById(id, CancellationToken.None))
+                .Setup(r => r.GetById(id, CancellationToken.None))
                 .ReturnsAsync(book);
 
             await _service.DeleteBookAsync(id, CancellationToken.None);
 
             _repositoryMock
-                .Verify(r => r.DeleteBook(book), Times.Once);
+                .Verify(r => r.Delete(book), Times.Once);
 
             _repositoryMock
                 .Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -314,7 +314,7 @@ namespace Library.Tests.Services
 
 
             _repositoryMock
-                .Setup(r => r.GetBookById(id, CancellationToken.None))
+                .Setup(r => r.GetById(id, CancellationToken.None))
                 .ReturnsAsync((Book?)null);
 
 
@@ -348,7 +348,7 @@ namespace Library.Tests.Services
         bookId, DateTime.UtcNow, "Новое название", "Эксмо", "Новое описание", 10, 3, new List<AuthorResponseDto>());
 
             _repositoryMock
-                .Setup(r => r.GetBookById(bookId, CancellationToken.None))
+                .Setup(r => r.GetById(bookId, CancellationToken.None))
                 .ReturnsAsync(book);
 
             _mapperMock
@@ -370,7 +370,7 @@ namespace Library.Tests.Services
             var updatedDto = new UpdateBookDto("t", "p", null, 1);
 
             _repositoryMock
-                .Setup(r => r.GetBookById(bookId, CancellationToken.None))
+                .Setup(r => r.GetById(bookId, CancellationToken.None))
                 .ReturnsAsync((Book?)null);
 
             Func<Task> act = async () =>
@@ -401,7 +401,7 @@ namespace Library.Tests.Services
             var responseDto = new BookResponseDto(bookId, DateTime.UtcNow, "Новое", "Эксмо", null, 10, 3, new List<AuthorResponseDto>());
 
             _repositoryMock
-                .Setup(r => r.GetBookById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(existingBook);
 
             _mapperMock

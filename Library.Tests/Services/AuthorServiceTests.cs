@@ -87,7 +87,7 @@ namespace Library.Tests.Services
             var authorDto = new AuthorResponseDto(authorId, DateTime.UtcNow, "Bob", "Great", null);
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(author);
 
             _mapperMock
@@ -107,7 +107,7 @@ namespace Library.Tests.Services
             var authorId = Guid.NewGuid();
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync((Author?)null);
 
             Func<Task> act = async () =>
@@ -133,13 +133,13 @@ namespace Library.Tests.Services
             };
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(author);
 
             await _service.DeleteAuthorAsync(authorId, CancellationToken.None);
 
             _authorRepositoryMock
-                .Verify(r => r.DeleteAuthor(author));
+                .Verify(r => r.Delete(author));
 
             _authorRepositoryMock
                 .Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -151,7 +151,7 @@ namespace Library.Tests.Services
             var authorId = Guid.NewGuid();
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync((Author?)null);
 
             Func<Task> act = async () =>
@@ -265,7 +265,7 @@ namespace Library.Tests.Services
             var updatedResponse = new AuthorResponseDto(authorId, DateTime.UtcNow, "NewBob", "NewGreat", null);
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(author);
 
             _mapperMock
@@ -287,7 +287,7 @@ namespace Library.Tests.Services
             var updatedDto = new UpdateAuthorDto("Bob", "Great", null);
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync((Author?)null);
 
             Func<Task> act = async () =>
@@ -318,7 +318,7 @@ namespace Library.Tests.Services
             var updatedResponse = new AuthorResponseDto(authorId, DateTime.UtcNow, "NewBob", "NewGreat", null);
 
             _authorRepositoryMock
-                .Setup(r => r.GetAuthorById(authorId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(authorId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(author);
 
             _mapperMock
