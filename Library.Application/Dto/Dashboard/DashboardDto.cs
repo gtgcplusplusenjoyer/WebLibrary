@@ -7,5 +7,8 @@ namespace Library.Application.Dto.Dashboard
     public record DashboardDto(IEnumerable<BookResponseDto> Books,
         IEnumerable<AuthorResponseDto> Authors,
         IEnumerable<LoanResponseDto> Loans,
-        long ElapsedMilliseconds);
+        long ElapsedMilliseconds,
+        int BooksCount,
+        int AuthorsCount,
+        int ActiveLoansCount);
 }
