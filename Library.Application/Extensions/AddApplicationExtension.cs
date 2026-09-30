@@ -13,6 +13,7 @@ namespace Library.Application.Extensions
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<ILoanService, LoanService>();
             services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IDashboardService, DashboardService>();
 
             services.AddAutoMapper(cfg => { }, typeof(BookMapper), typeof(AuthorMapper), typeof(LoanMapper));
 
