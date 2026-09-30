@@ -1,14 +1,8 @@
-﻿using Library.Application.Dto.Author;
-using Library.Application.Dto.Book;
-using Library.Application.Dto.Loan;
-
-namespace Library.Application.Dto.Dashboard
+﻿namespace Library.Application.Dto.Dashboard
 {
-    public record DashboardDto(IEnumerable<BookResponseDto> Books,
-        IEnumerable<AuthorResponseDto> Authors,
-        IEnumerable<LoanResponseDto> Loans,
-        long ElapsedMilliseconds,
+    public record DashboardDto( 
         int BooksCount,
         int AuthorsCount,
-        int ActiveLoansCount);
+        int ActiveLoansCount,
+        long ElapsedMilliseconds);
 }
