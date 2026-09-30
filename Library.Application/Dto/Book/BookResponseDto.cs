@@ -1,4 +1,6 @@
-﻿namespace Library.Application.Dto
+﻿using Library.Application.Dto.Author;
+
+namespace Library.Application.Dto.Book
 {
     public record BookResponseDto(Guid Id,
         DateTime CreatedAt,
