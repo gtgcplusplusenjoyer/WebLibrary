@@ -14,14 +14,14 @@ namespace Library.API.Controllers
             _service = service;
         }
 
-        [HttpPost] 
+        [HttpPost]
         public async Task<IActionResult> CreateAuthor(
             [FromBody] CreateAuthorDto createAuthorDto,
             CancellationToken cancellationToken = default)
         {
             var author = await _service.CreateAuthorAsync(createAuthorDto, cancellationToken);
 
-            return CreatedAtAction(nameof(GetAuthorById), new {id = author.Id}, author);
+            return CreatedAtAction(nameof(GetAuthorById), new { id = author.Id }, author);
         }
 
         [HttpGet]
@@ -30,17 +30,17 @@ namespace Library.API.Controllers
             [FromQuery] int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
-            if(pageNumber < 1)
+            if (pageNumber < 1)
             {
                 pageNumber = 1;
             }
 
-            if(pageSize < 1)
+            if (pageSize < 1)
             {
                 pageSize = 1;
             }
 
-            else if(pageSize > 50)
+            else if (pageSize > 50)
             {
                 pageSize = 50;
             }
@@ -75,7 +75,7 @@ namespace Library.API.Controllers
 
             return NoContent();
         }
-         
+
 
     }
 }

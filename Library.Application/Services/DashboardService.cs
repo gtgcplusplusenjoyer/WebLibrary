@@ -6,13 +6,13 @@ using System.Diagnostics;
 namespace Library.Application.Services
 {
     public class DashboardService : IDashboardService
-    { 
+    {
         private readonly IDashboardRepository _dashboardRepository;
         public DashboardService(IDashboardRepository dashboardRepository)
-        { 
+        {
             _dashboardRepository = dashboardRepository;
         }
-        public async Task<DashboardDto> GetDashboardWithoutWhenAllAsync(CancellationToken cancellationToken = default) 
+        public async Task<DashboardDto> GetDashboardWithoutWhenAllAsync(CancellationToken cancellationToken = default)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -23,7 +23,7 @@ namespace Library.Application.Services
 
             stopwatch.Stop();
 
-            return new DashboardDto(books,authors,loans, stopwatch.ElapsedMilliseconds);
+            return new DashboardDto(books, authors, loans, stopwatch.ElapsedMilliseconds);
         }
 
         public async Task<DashboardDto> GetDashboardWithWhenAllAsync(CancellationToken cancellationToken = default)
@@ -43,7 +43,7 @@ namespace Library.Application.Services
 
             stopwatch.Stop();
 
-            return new DashboardDto(books,authors,loans,stopwatch.ElapsedMilliseconds);
+            return new DashboardDto(books, authors, loans, stopwatch.ElapsedMilliseconds);
         }
     }
 }

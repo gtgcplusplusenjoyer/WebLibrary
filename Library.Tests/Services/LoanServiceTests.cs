@@ -109,9 +109,9 @@ namespace Library.Tests.Services
             _loanRepositoryMock
                 .Setup(r => r.GetAll(1, 10, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(loans);
-                
+
             _mapperMock
-                .Setup(m=>m.Map<List<LoanResponseDto>>(loans))
+                .Setup(m => m.Map<List<LoanResponseDto>>(loans))
                 .Returns(loansResponseDtos);
 
             var result = await _service.GetAllLoansAsync(1, 10, CancellationToken.None);
@@ -270,7 +270,7 @@ namespace Library.Tests.Services
         }
 
 
-        [Fact]  
+        [Fact]
         public async Task CreateLoanAsync_WhenBookAvailable_CreatesLoan()
         {
             var bookId = Guid.NewGuid();
@@ -355,7 +355,7 @@ namespace Library.Tests.Services
             var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
-                .Setup(r=>r.GetById(bookId, It.IsAny<CancellationToken>()))
+                .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
                 .ReturnsAsync(book);
 
             Func<Task> act = async () =>
@@ -476,7 +476,7 @@ namespace Library.Tests.Services
             };
 
             var responseDto = new LoanResponseDto(loanId, DateTime.UtcNow, bookId, "Book1",
-                DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow, LoanStatus.Returned );
+                DateTime.UtcNow, DateTime.UtcNow, DateTime.UtcNow, LoanStatus.Returned);
 
             _loanRepositoryMock
                 .SetupSequence(r => r.GetById(loanId, It.IsAny<CancellationToken>()))
@@ -501,10 +501,10 @@ namespace Library.Tests.Services
 
         [Fact]
         public async Task ReturnLoanAsync_WhenLoanNotFound_ThrowsNotFoundException()
-        { 
+        {
             var loanId = Guid.NewGuid();
 
-            var loan = new Loan(); 
+            var loan = new Loan();
 
             _loanRepositoryMock
                 .Setup(r => r.GetById(loanId, It.IsAny<CancellationToken>()))
@@ -521,7 +521,7 @@ namespace Library.Tests.Services
 
         [Fact]
         public async Task ReturnLoanAsync_WhenLoanIsNotActive_ThrowsInvalidOperationException()
-        { 
+        {
             var loanId = Guid.NewGuid();
 
             var loan = new Loan()
@@ -596,7 +596,7 @@ namespace Library.Tests.Services
 
             _bookRepositoryMock
                 .Setup(r => r.GetById(newBookId, It.IsAny<CancellationToken>()))
-                .ReturnsAsync(newBook); 
+                .ReturnsAsync(newBook);
 
             _mapperMock
                 .Setup(m => m.Map<LoanResponseDto>(returnedLoan))
@@ -607,7 +607,7 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.BookId.Should().Be(newBookId);
             oldBook.AvailableCopies.Should().Be(3);
-            newBook.AvailableCopies.Should().Be(2); 
+            newBook.AvailableCopies.Should().Be(2);
         }
 
         [Fact]
@@ -669,5 +669,5 @@ namespace Library.Tests.Services
                 Times.Never);
         }
 
-    } 
+    }
 }

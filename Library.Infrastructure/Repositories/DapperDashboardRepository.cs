@@ -14,7 +14,7 @@ namespace Library.Infrastructure.Repositories
         }
         public async Task<int> GetActiveLoansCountAsync(CancellationToken cancellationToken = default)
         {
-            using var connection =new NpgsqlConnection(_connectionString);
+            using var connection = new NpgsqlConnection(_connectionString);
 
             const string sql = @"
                 SELECT 

@@ -45,7 +45,7 @@ namespace Library.Application.Services
 
             var createdLoan = await _loanRepository.GetById(loan.Id, cancellationToken);
 
-            return _mapper.Map<LoanResponseDto>(createdLoan); 
+            return _mapper.Map<LoanResponseDto>(createdLoan);
         }
 
         public async Task<IEnumerable<LoanResponseDto>> GetActiveLoansAsync(CancellationToken cancellationToken = default)
@@ -69,7 +69,7 @@ namespace Library.Application.Services
         {
             var loan = await _loanRepository.GetById(id, cancellationToken);
 
-            if(loan == null)
+            if (loan == null)
             {
                 throw new NotFoundException($"Loan with Id: {id} not found");
             }
@@ -79,7 +79,7 @@ namespace Library.Application.Services
 
         public async Task<IEnumerable<LoanResponseDto>> GetLoansByBookIdAsync(Guid bookId, CancellationToken cancellationToken = default)
         {
-            var loan = await _loanRepository.GetByBookId(bookId, cancellationToken); 
+            var loan = await _loanRepository.GetByBookId(bookId, cancellationToken);
 
             return _mapper.Map<List<LoanResponseDto>>(loan);
 
@@ -96,12 +96,12 @@ namespace Library.Application.Services
         {
             var loan = await _loanRepository.GetById(id, cancellationToken);
 
-            if(loan == null)
+            if (loan == null)
             {
                 throw new NotFoundException($"Loan with Id: {id} not found");
             }
 
-            if(loan.Status != LoanStatus.Active)
+            if (loan.Status != LoanStatus.Active)
             {
                 throw new InvalidOperationException($"Loan with Id: {id} is not active");
             }
@@ -136,7 +136,7 @@ namespace Library.Application.Services
                 throw new NotFoundException($"Loan with Id: {id} is not found");
             }
 
-            if(updateLoanDto.BookId != loan.BookId)
+            if (updateLoanDto.BookId != loan.BookId)
             {
                 var oldBook = await _bookRepository.GetById(loan.BookId, cancellationToken);
 
@@ -174,7 +174,7 @@ namespace Library.Application.Services
 
             var updatedLoan = await _loanRepository.GetById(id, cancellationToken);
 
-            return _mapper.Map<LoanResponseDto>(updatedLoan); 
+            return _mapper.Map<LoanResponseDto>(updatedLoan);
         }
     }
-} 
+}

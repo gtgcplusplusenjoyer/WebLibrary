@@ -1,5 +1,4 @@
-﻿using Library.Application.Dto;
-using Library.Application.Dto.Book;
+﻿using Library.Application.Dto.Book;
 
 namespace Library.Application.Interfaces
 {
@@ -12,6 +11,6 @@ namespace Library.Application.Interfaces
             int pageSize = int.MaxValue,
             CancellationToken cancellationToken = default);
         Task<BookResponseDto> UpdateBookAsync(Guid id, UpdateBookDto updateBookDto, CancellationToken cancellationToken = default);
-        Task DeleteBookAsync(Guid id,CancellationToken cancellationToken = default);
+        Task DeleteBookAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

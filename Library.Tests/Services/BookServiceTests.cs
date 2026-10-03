@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using Library.Application.Dto;
 using Library.Application.Dto.Author;
 using Library.Application.Dto.Book;
 using Library.Application.Exceptions;
@@ -22,7 +21,7 @@ namespace Library.Tests.Services
             _repositoryMock = new Mock<ILibraryRepository>();
             _mapperMock = new Mock<IMapper>();
             _authorRepositoryMock = new Mock<IAuthorRepository>();
-            _service = new BookService(_repositoryMock.Object, _authorRepositoryMock.Object, _mapperMock.Object); 
+            _service = new BookService(_repositoryMock.Object, _authorRepositoryMock.Object, _mapperMock.Object);
         }
 
         [Fact]
@@ -44,7 +43,7 @@ namespace Library.Tests.Services
 
             _repositoryMock
                 .Setup(r => r.GetAll(1,
-                    10, 
+                    10,
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(books);
 
@@ -84,7 +83,7 @@ namespace Library.Tests.Services
 
             var result = await _service.GetAllBooksAsync(
                     1,
-                    10, 
+                    10,
                     CancellationToken.None);
 
 
@@ -414,6 +413,6 @@ namespace Library.Tests.Services
             existingBook.TotalCopies.Should().Be(10);
         }
 
-         
+
     }
 }

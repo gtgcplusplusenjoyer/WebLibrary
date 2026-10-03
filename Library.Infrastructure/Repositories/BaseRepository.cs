@@ -26,7 +26,7 @@ namespace Library.Infrastructure.Repositories
             var query = _dbSet.AsNoTracking();
             query = ApplyIncludes(query);
 
-            return await query 
+            return await query
                 .OrderBy(e => e.Id)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -37,7 +37,7 @@ namespace Library.Infrastructure.Repositories
         {
             var query = _dbSet.AsQueryable();
             query = ApplyIncludes(query);
-            return await query.FirstOrDefaultAsync(e=>e.Id == id, cancellationToken);
+            return await query.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)

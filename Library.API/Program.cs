@@ -4,7 +4,7 @@ using Library.Infrastructure.Extensions;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
@@ -13,7 +13,7 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
- 
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddValidation();
 builder.Services.AddApplication();

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Library.Application.Dto;
 using Library.Application.Dto.Author;
 using Library.Application.Exceptions;
 using Library.Application.Interfaces;
@@ -33,9 +32,9 @@ namespace Library.Application.Services
 
         public async Task DeleteAuthorAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var author = await _repository.GetById(id,cancellationToken);
+            var author = await _repository.GetById(id, cancellationToken);
 
-            if(author == null)
+            if (author == null)
             {
                 throw new NotFoundException($"Author with Id: {id} not found");
             }
@@ -59,7 +58,7 @@ namespace Library.Application.Services
         {
             var author = await _repository.GetById(id, cancellationToken);
 
-            if(author == null)
+            if (author == null)
             {
                 throw new NotFoundException($"Author with Id: {id} not found");
             }

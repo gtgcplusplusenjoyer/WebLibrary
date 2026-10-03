@@ -13,12 +13,12 @@ namespace Library.Application.Services
         }
         public async Task<IEnumerable<PopularBookDto>> GetPopularBooksAsync(int count = 10, CancellationToken cancellationToken = default)
         {
-            if(count <= 0)
+            if (count <= 0)
             {
                 throw new ArgumentException("Count must be greater than 0");
             }
 
-            return await _reportRepository.GetPopularBooksAsync(count,cancellationToken);
+            return await _reportRepository.GetPopularBooksAsync(count, cancellationToken);
         }
 
         public async Task<LibraryStatisticsDto> GetStatisticsAsync(CancellationToken cancellationToken = default)

@@ -20,9 +20,8 @@ namespace Library.Application.Mapper
                 .ForMember(dest => dest.LoanDate, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(dest => dest.DueDate, opt => opt.MapFrom(src => DateTime.UtcNow.AddDays(src.LoanDays)))
                 .ForMember(dest => dest.ReturnDate, opt => opt.Ignore())
-                .ForMember(dest => dest.Book, opt => opt.Ignore()) 
-                .ForMember(dest => dest.Status, opt => opt.MapFrom( _ => LoanStatus.Active)); 
+                .ForMember(dest => dest.Book, opt => opt.Ignore())
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(_ => LoanStatus.Active));
         }
     }
 }
-    

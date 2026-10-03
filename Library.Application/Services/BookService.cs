@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Library.Application.Dto;
 using Library.Application.Dto.Book;
 using Library.Application.Exceptions;
 using Library.Application.Interfaces;

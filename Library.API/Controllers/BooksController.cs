@@ -23,7 +23,7 @@ namespace Library.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById(Guid id,CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetBookById(Guid id, CancellationToken cancellationToken = default)
         {
             var book = await _service.GetBookByIdAsync(id, cancellationToken);
 
@@ -36,22 +36,22 @@ namespace Library.API.Controllers
             [FromQuery] int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
-            if(pageNumber < 1)
+            if (pageNumber < 1)
             {
                 pageNumber = 1;
             }
 
-            if(pageSize < 1)
+            if (pageSize < 1)
             {
                 pageSize = 1;
             }
-            else if(pageSize> 50)
+            else if (pageSize > 50)
             {
                 pageSize = 50;
             }
-            
 
-            var books = await _service.GetAllBooksAsync(pageNumber, pageSize,cancellationToken);
+
+            var books = await _service.GetAllBooksAsync(pageNumber, pageSize, cancellationToken);
 
             return Ok(books);
         }

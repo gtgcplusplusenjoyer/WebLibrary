@@ -13,10 +13,10 @@ namespace Library.Infrastructure.Configuration
             builder.HasKey(l => l.Id);
 
             builder.Property(l => l.Id)
-                .IsRequired(); 
+                .IsRequired();
 
             builder.Property(l => l.BookId)
-                .IsRequired(); 
+                .IsRequired();
 
             builder.Property(l => l.CreatedAt)
                 .IsRequired();
@@ -27,7 +27,7 @@ namespace Library.Infrastructure.Configuration
 
             builder.Property(l => l.DueDate)
                 .IsRequired();
-             
+
             builder.Property(l => l.LoanDate)
                 .IsRequired();
 
@@ -38,7 +38,7 @@ namespace Library.Infrastructure.Configuration
                 .WithMany(l => l.Loans)
                 .HasForeignKey(l => l.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
         }
     }
 }

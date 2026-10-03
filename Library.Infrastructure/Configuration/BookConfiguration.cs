@@ -1,6 +1,6 @@
 ﻿using Library.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders; 
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Library.Infrastructure.Configuration
 {
@@ -37,9 +37,9 @@ namespace Library.Infrastructure.Configuration
             builder.Property(b => b.CreatedAt)
                 .IsRequired();
 
-            builder.HasMany(b=>b.BookAuthors)
-                .WithOne(ba=>ba.Book)
-                .HasForeignKey(ba=>ba.BookId)
+            builder.HasMany(b => b.BookAuthors)
+                .WithOne(ba => ba.Book)
+                .HasForeignKey(ba => ba.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

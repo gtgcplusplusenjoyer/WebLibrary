@@ -31,7 +31,7 @@ namespace Library.Infrastructure.Repositories
             LIMIT @Count
             ";
 
-            return await connection.QueryAsync<PopularBookDto>(sql, new {Count = count});
+            return await connection.QueryAsync<PopularBookDto>(sql, new { Count = count });
         }
 
         public async Task<LibraryStatisticsDto> GetStatisticsAsync(CancellationToken cancellationToken)
