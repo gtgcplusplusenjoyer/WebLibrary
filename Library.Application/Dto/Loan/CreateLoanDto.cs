@@ -1,4 +1,4 @@
 ﻿namespace Library.Application.Dto
 {
-    public record CreateLoanDto(Guid BookId, int LoanDays = 30);
+    public record CreateLoanDto(Guid BookId, Guid UserId, int LoanDays = 30);
 }

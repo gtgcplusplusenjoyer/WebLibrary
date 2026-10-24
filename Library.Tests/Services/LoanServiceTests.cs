@@ -274,6 +274,7 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenBookAvailable_CreatesLoan()
         {
             var bookId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var book = new Book
             {
                 Id = bookId,
@@ -281,7 +282,7 @@ namespace Library.Tests.Services
                 AvailableCopies = 3
             };
 
-            var createDto = new CreateLoanDto(bookId, 30);
+            var createDto = new CreateLoanDto(bookId, userId, 30);
 
             var loan = new Loan
             {
@@ -326,7 +327,8 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenBookNotFound_ThrowsNotFoundException()
         {
             var bookId = Guid.NewGuid();
-            var createDto = new CreateLoanDto(bookId, 30);
+            var userId = Guid.NewGuid();
+            var createDto = new CreateLoanDto(bookId, userId, 30);
 
             _bookRepositoryMock
                 .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
@@ -345,6 +347,7 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenNoAvailableCopies_ThrowsInvalidOperationException()
         {
             var bookId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var book = new Book
             {
                 Id = bookId,
@@ -352,7 +355,7 @@ namespace Library.Tests.Services
                 AvailableCopies = 0
             };
 
-            var createDto = new CreateLoanDto(bookId, 30);
+            var createDto = new CreateLoanDto(bookId, userId, 30);
 
             _bookRepositoryMock
                 .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))

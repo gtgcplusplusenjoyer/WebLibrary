@@ -40,6 +40,8 @@ namespace Library.Application.Services
 
             var loan = _mapper.Map<Loan>(createLoanDto);
 
+            loan.UserId = createLoanDto.UserId;
+
             await _loanRepository.Add(loan, cancellationToken);
             await _loanRepository.SaveChangesAsync(cancellationToken);
 
