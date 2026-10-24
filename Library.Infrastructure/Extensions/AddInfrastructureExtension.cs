@@ -16,6 +16,7 @@ namespace Library.Infrastructure.Extensions
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IReportRepository, DapperReportRepository>();
             services.AddScoped<IDashboardRepository, DapperDashboardRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<LibraryDbContext>(opt =>
             {
