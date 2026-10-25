@@ -8,5 +8,6 @@
         public string PasswordHash { get; set; } = string.Empty;
         public string Role { get; set; } = "User";
         public ICollection<Loan> Loans { get; set; } = new List<Loan>();
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }
