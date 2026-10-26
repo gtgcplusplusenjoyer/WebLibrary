@@ -17,5 +17,28 @@ namespace Library.Infrastructure.Repositories
                 .Include(r => r.User)
                 .FirstOrDefaultAsync(r=>r.Token == token, cancellationToken);
         }
+
+        public async Task RevokeAllTokensByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        {
+            var tokens = await _dbSet
+                .Where(r => r.UserId == userId && r.RevokedAt == null)
+                .ToListAsync(cancellationToken);
+
+            foreach (var token in tokens)
+            {
+                token.RevokedAt = DateTime.UtcNow;
+            }
+
+        }
+
+        public async Task RevokeAsync(Guid tokenId, CancellationToken cancellationToken = default)
+        {
+            var token = await _dbSet.FindAsync(tokenId, cancellationToken);
+
+            if(token != null)
+            {
+                token.RevokedAt = DateTime.UtcNow;
+            }
+        }
     }
 }
