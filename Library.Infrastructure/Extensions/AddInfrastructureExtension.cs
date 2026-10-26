@@ -1,5 +1,7 @@
 ﻿using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.External;
 using Library.Infrastructure.Context;
+using Library.Infrastructure.External;
 using Library.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,9 @@ namespace Library.Infrastructure.Extensions
             services.AddScoped<IReportRepository, DapperReportRepository>();
             services.AddScoped<IDashboardRepository, DapperDashboardRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             services.AddDbContext<LibraryDbContext>(opt =>
             {
