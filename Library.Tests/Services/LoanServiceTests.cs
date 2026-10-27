@@ -282,7 +282,7 @@ namespace Library.Tests.Services
                 AvailableCopies = 3
             };
 
-            var createDto = new CreateLoanDto(bookId, userId, 30);
+            var createDto = new CreateLoanDto(bookId, 30);
 
             var loan = new Loan
             {
@@ -316,7 +316,7 @@ namespace Library.Tests.Services
                 .Setup(m => m.Map<LoanResponseDto>(loan))
                 .Returns(loanDto);
 
-            var result = await _service.CreateLoanAsync(createDto, CancellationToken.None);
+            var result = await _service.CreateLoanAsync(userId, createDto, CancellationToken.None);
 
             result.Should().NotBeNull();
             result.BookId.Should().Be(bookId);
@@ -328,7 +328,8 @@ namespace Library.Tests.Services
         {
             var bookId = Guid.NewGuid();
             var userId = Guid.NewGuid();
-            var createDto = new CreateLoanDto(bookId, userId, 30);
+
+            var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
                 .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
@@ -336,7 +337,7 @@ namespace Library.Tests.Services
 
             Func<Task> act = async () =>
             {
-                await _service.CreateLoanAsync(createDto, CancellationToken.None);
+                await _service.CreateLoanAsync(userId, createDto, CancellationToken.None);
             };
 
             await act.Should().ThrowAsync<NotFoundException>()
@@ -355,7 +356,7 @@ namespace Library.Tests.Services
                 AvailableCopies = 0
             };
 
-            var createDto = new CreateLoanDto(bookId, userId, 30);
+            var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
                 .Setup(r => r.GetById(bookId, It.IsAny<CancellationToken>()))
@@ -363,7 +364,7 @@ namespace Library.Tests.Services
 
             Func<Task> act = async () =>
             {
-                await _service.CreateLoanAsync(createDto, It.IsAny<CancellationToken>());
+                await _service.CreateLoanAsync(userId, createDto, It.IsAny<CancellationToken>());
             };
 
             await act.Should().ThrowAsync<InvalidOperationException>()
