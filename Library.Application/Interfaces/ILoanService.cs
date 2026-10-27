@@ -5,7 +5,7 @@ namespace Library.Application.Interfaces
 {
     public interface ILoanService
     {
-        Task<LoanResponseDto> CreateLoanAsync(CreateLoanDto createLoanDto, CancellationToken cancellationToken = default);
+        Task<LoanResponseDto> CreateLoanAsync(Guid UserId, CreateLoanDto createLoanDto, CancellationToken cancellationToken = default);
         Task<IEnumerable<LoanResponseDto>> GetAllLoansAsync(
             int pageNumber = 1,
             int pageSize = 10,

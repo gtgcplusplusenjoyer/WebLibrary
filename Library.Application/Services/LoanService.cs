@@ -21,7 +21,7 @@ namespace Library.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<LoanResponseDto> CreateLoanAsync(CreateLoanDto createLoanDto, CancellationToken cancellationToken = default)
+        public async Task<LoanResponseDto> CreateLoanAsync(Guid UserId, CreateLoanDto createLoanDto, CancellationToken cancellationToken = default)
         {
             var book = await _bookRepository.GetById(createLoanDto.BookId, cancellationToken);
 
@@ -39,6 +39,8 @@ namespace Library.Application.Services
             _bookRepository.Update(book);
 
             var loan = _mapper.Map<Loan>(createLoanDto);
+
+            loan.UserId = UserId;
 
             await _loanRepository.Add(loan, cancellationToken);
             await _loanRepository.SaveChangesAsync(cancellationToken);

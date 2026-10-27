@@ -18,6 +18,9 @@ namespace Library.Infrastructure.Configuration
             builder.Property(l => l.BookId)
                 .IsRequired();
 
+            builder.Property(l => l.UserId)
+                .IsRequired();
+
             builder.Property(l => l.CreatedAt)
                 .IsRequired();
 
@@ -35,10 +38,14 @@ namespace Library.Infrastructure.Configuration
                 .IsRequired(false);
 
             builder.HasOne(b => b.Book)
-                .WithMany(l => l.Loans)
+                .WithMany(b => b.Loans)
                 .HasForeignKey(l => l.BookId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasOne(l => l.User)
+                .WithMany(u => u.Loans)
+                .HasForeignKey(l => l.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

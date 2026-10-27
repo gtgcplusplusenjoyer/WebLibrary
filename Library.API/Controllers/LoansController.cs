@@ -1,7 +1,9 @@
 ﻿using Library.Application.Dto;
 using Library.Application.Dto.Loan;
 using Library.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Library.API.Controllers
 {
@@ -15,11 +17,18 @@ namespace Library.API.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateLoan([FromBody] CreateLoanDto createLoanDto,
             CancellationToken cancellationToken = default)
         {
-            var loan = await _service.CreateLoanAsync(createLoanDto, cancellationToken);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return BadRequest(new { error = "Invalid user identifier" });
+            }
+
+            var loan = await _service.CreateLoanAsync(userId, createLoanDto, cancellationToken);
 
             return CreatedAtAction(nameof(GetLoanById), new { id = loan.Id }, loan);
         }

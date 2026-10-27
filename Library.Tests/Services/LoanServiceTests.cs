@@ -274,6 +274,7 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenBookAvailable_CreatesLoan()
         {
             var bookId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var book = new Book
             {
                 Id = bookId,
@@ -315,7 +316,7 @@ namespace Library.Tests.Services
                 .Setup(m => m.Map<LoanResponseDto>(loan))
                 .Returns(loanDto);
 
-            var result = await _service.CreateLoanAsync(createDto, CancellationToken.None);
+            var result = await _service.CreateLoanAsync(userId, createDto, CancellationToken.None);
 
             result.Should().NotBeNull();
             result.BookId.Should().Be(bookId);
@@ -326,6 +327,8 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenBookNotFound_ThrowsNotFoundException()
         {
             var bookId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
+
             var createDto = new CreateLoanDto(bookId, 30);
 
             _bookRepositoryMock
@@ -334,7 +337,7 @@ namespace Library.Tests.Services
 
             Func<Task> act = async () =>
             {
-                await _service.CreateLoanAsync(createDto, CancellationToken.None);
+                await _service.CreateLoanAsync(userId, createDto, CancellationToken.None);
             };
 
             await act.Should().ThrowAsync<NotFoundException>()
@@ -345,6 +348,7 @@ namespace Library.Tests.Services
         public async Task CreateLoanAsync_WhenNoAvailableCopies_ThrowsInvalidOperationException()
         {
             var bookId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
             var book = new Book
             {
                 Id = bookId,
@@ -360,7 +364,7 @@ namespace Library.Tests.Services
 
             Func<Task> act = async () =>
             {
-                await _service.CreateLoanAsync(createDto, It.IsAny<CancellationToken>());
+                await _service.CreateLoanAsync(userId, createDto, It.IsAny<CancellationToken>());
             };
 
             await act.Should().ThrowAsync<InvalidOperationException>()
