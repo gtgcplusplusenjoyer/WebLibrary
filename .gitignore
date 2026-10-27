@@ -3,7 +3,7 @@
 *.suo
 *.user
 *.csproj.user
-
+appsettings.Development.json
 # Build results
 bin/
 obj/
