@@ -24,19 +24,19 @@ namespace Library.Application.Services
             _refreshTokenRepository = refreshTokenRepository;
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
-            _tokenGenerator = tokenGenerator; 
+            _tokenGenerator = tokenGenerator;
             _mapper = mapper;
         }
         public async Task<AuthResult> LoginAsync(LoginUserDto loginUserDto, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetUserByEmail(loginUserDto.Email, cancellationToken);
 
-            if(user == null)
+            if (user == null)
             {
                 return AuthResult.Failure("User with this email not exist");
             }
 
-            if(!_passwordHasher.VerifyPassword(loginUserDto.Password, user.PasswordHash))
+            if (!_passwordHasher.VerifyPassword(loginUserDto.Password, user.PasswordHash))
             {
                 return AuthResult.Failure("Invalid email or password");
             }
@@ -52,7 +52,7 @@ namespace Library.Application.Services
                 ExpiresAt = DateTime.UtcNow.AddDays(7)
             };
 
-            await _refreshTokenRepository.Add(refreshToken,cancellationToken);
+            await _refreshTokenRepository.Add(refreshToken, cancellationToken);
             await _refreshTokenRepository.SaveChangesAsync(cancellationToken);
 
             return AuthResult.Success(tokenPair, user.Id);
@@ -69,7 +69,7 @@ namespace Library.Application.Services
 
             await _refreshTokenRepository.RevokeAllTokensByUserIdAsync(UserId, cancellationToken);
             await _refreshTokenRepository.SaveChangesAsync(cancellationToken);
-            
+
             return AuthResult.Success(user.Id);
         }
 
@@ -77,24 +77,24 @@ namespace Library.Application.Services
         {
             var storedToken = await _refreshTokenRepository.GetByTokenAsync(refreshTokenRequestDto.RefreshToken, cancellationToken);
 
-            if(storedToken == null)
-            { 
+            if (storedToken == null)
+            {
                 return AuthResult.Failure("Refresh token is not found");
             }
 
-            if(storedToken.IsRevoked)
+            if (storedToken.IsRevoked)
             {
                 return AuthResult.Failure("Refresh token has been revoked");
             }
 
-            if(storedToken.ExpiresAt < DateTime.UtcNow)
-            { 
+            if (storedToken.ExpiresAt < DateTime.UtcNow)
+            {
                 return AuthResult.Failure("Refresh token has expired");
             }
 
             var user = await _userRepository.GetById(storedToken.UserId, cancellationToken);
 
-            if(user == null)
+            if (user == null)
             {
                 return AuthResult.Failure("User with this id is not found");
             }
@@ -114,13 +114,13 @@ namespace Library.Application.Services
 
             await _refreshTokenRepository.Add(newRefreshToken, cancellationToken);
             await _refreshTokenRepository.SaveChangesAsync(cancellationToken);
-             
+
             return AuthResult.Success(newTokenPair, user.Id);
         }
 
         public async Task<AuthResult> RegisterAsync(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
         {
-            var existingUser = await _userRepository.GetUserByEmail(registerUserDto.Email,cancellationToken);
+            var existingUser = await _userRepository.GetUserByEmail(registerUserDto.Email, cancellationToken);
 
             if (existingUser != null)
             {

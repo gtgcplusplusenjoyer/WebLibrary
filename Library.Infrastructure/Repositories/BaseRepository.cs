@@ -37,6 +37,7 @@ namespace Library.Infrastructure.Repositories
         {
             var query = _dbSet.AsQueryable();
             query = ApplyIncludes(query);
+
             return await query.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
 

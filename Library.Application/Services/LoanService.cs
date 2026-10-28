@@ -122,6 +122,7 @@ namespace Library.Application.Services
 
             _bookRepository.Update(book);
             _loanRepository.Update(loan);
+
             await _loanRepository.SaveChangesAsync(cancellationToken);
 
             var updatedLoan = await _loanRepository.GetById(id, cancellationToken);

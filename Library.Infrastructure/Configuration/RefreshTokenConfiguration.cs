@@ -1,9 +1,6 @@
 ﻿using Library.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Library.Infrastructure.Configuration
 {
@@ -37,7 +34,7 @@ namespace Library.Infrastructure.Configuration
             builder.Property(r => r.CreatedAt)
                 .IsRequired();
 
-            builder.Ignore(r=>r.IsRevoked);
+            builder.Ignore(r => r.IsRevoked);
 
             builder.HasOne(r => r.User)
                 .WithMany(u => u.RefreshTokens)

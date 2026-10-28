@@ -23,6 +23,7 @@ namespace Library.API.Controllers
             CancellationToken cancellationToken = default)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
             if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
             {
                 return BadRequest(new { error = "Invalid user identifier" });

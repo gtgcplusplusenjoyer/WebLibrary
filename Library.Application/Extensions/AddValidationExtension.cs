@@ -28,7 +28,6 @@ namespace Library.Application.Extensions
             services.AddScoped<IValidator<LoginUserDto>, LoginUserDtoValidator>();
             services.AddScoped<IValidator<RefreshTokenRequestDto>, RefreshTokenRequestDtoValidator>();
 
-
             services.AddFluentValidationAutoValidation();
 
             return services;

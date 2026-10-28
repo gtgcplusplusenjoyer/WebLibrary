@@ -56,7 +56,9 @@ namespace Library.API.Controllers
             var result = await _authService.RefreshAsync(refreshTokenRequestDto, cancellationToken);
 
             if (!result.IsSuccess)
+            {
                 return Unauthorized(new { error = result.ErrorMessage });
+            }
 
             return Ok(new AuthResponseDto(
                 result.TokenPair!.AccessToken,

@@ -50,7 +50,6 @@ namespace Library.API.Controllers
                 pageSize = 50;
             }
 
-
             var books = await _service.GetAllBooksAsync(pageNumber, pageSize, cancellationToken);
 
             return Ok(books);

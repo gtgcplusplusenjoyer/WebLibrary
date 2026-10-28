@@ -12,6 +12,7 @@ namespace Library.API.Controllers
         {
             _service = service;
         }
+
         [HttpGet("popular-books")]
         public async Task<IActionResult> GetPopularBooks([FromQuery] int count = 10, CancellationToken cancellationToken = default)
         {

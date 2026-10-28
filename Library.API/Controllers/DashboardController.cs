@@ -20,6 +20,7 @@ namespace Library.API.Controllers
 
             return Ok(dashboard);
         }
+
         [HttpGet("dashboard-with-whenall")]
         public async Task<IActionResult> GetDashboardWithWhenAllAsync(CancellationToken cancellationToken = default)
         {
