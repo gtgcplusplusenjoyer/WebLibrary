@@ -1,6 +1,6 @@
 ﻿using Library.Application.Dto.Dashboard;
 using Library.Application.Interfaces;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 using System.Diagnostics;
 
 namespace Library.Application.Services

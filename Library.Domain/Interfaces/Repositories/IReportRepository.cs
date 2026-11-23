@@ -1,6 +1,6 @@
 ﻿using Library.Domain.Dto.Reports;
 
-namespace Library.Domain.Interfaces
+namespace Library.Domain.Interfaces.Repositories
 {
     public interface IReportRepository
     {

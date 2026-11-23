@@ -3,7 +3,7 @@ using Library.Application.Dto.Author;
 using Library.Application.Exceptions;
 using Library.Application.Interfaces;
 using Library.Domain.Entities;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 
 namespace Library.Application.Services
 {

@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
