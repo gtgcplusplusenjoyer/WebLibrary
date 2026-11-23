@@ -1,5 +1,7 @@
-﻿using Library.Domain.Interfaces.External;
+﻿using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.External;
 using Library.Domain.Interfaces.Repositories;
+using Library.Infrastructure.Caching;
 using Library.Infrastructure.Context;
 using Library.Infrastructure.External;
 using Library.Infrastructure.Repositories;
@@ -32,6 +34,9 @@ namespace Library.Infrastructure.Extensions
             services.AddScoped<ITokenGenerator, TokenGenerator>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
             services.AddAuthExtension(configuration);
+
+            services.AddDistributedMemoryCache();
+            services.AddScoped<ICacheService, DistributedCacheService>();
 
             return services;
         }
