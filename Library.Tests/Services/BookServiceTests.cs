@@ -6,6 +6,7 @@ using Library.Application.Exceptions;
 using Library.Application.Services;
 using Library.Domain.Entities;
 using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 using Moq;
 
 namespace Library.Tests.Services
@@ -16,12 +17,21 @@ namespace Library.Tests.Services
         private readonly Mock<IMapper> _mapperMock;
         private readonly Mock<IAuthorRepository> _authorRepositoryMock;
         private readonly BookService _service;
+        private readonly Mock<ICacheService> _cacheServiceMock;
         public BookServiceTests()
         {
             _repositoryMock = new Mock<ILibraryRepository>();
             _mapperMock = new Mock<IMapper>();
             _authorRepositoryMock = new Mock<IAuthorRepository>();
-            _service = new BookService(_repositoryMock.Object, _authorRepositoryMock.Object, _mapperMock.Object);
+            _cacheServiceMock = new Mock<ICacheService>();
+            _cacheServiceMock
+                .Setup(c => c.GetAsync<It.IsAnyType>(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((It.IsAnyType)null);
+            _service = new BookService(
+                _repositoryMock.Object,
+                _authorRepositoryMock.Object,
+                _mapperMock.Object,
+                _cacheServiceMock.Object);
         }
 
         [Fact]
@@ -61,6 +71,12 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.Should().HaveCount(2);
             result.Should().BeEquivalentTo(bookDtos);
+
+            _cacheServiceMock.Verify(c => c.SetAsync(
+                It.IsAny<string>(),
+                It.IsAny<List<BookResponseDto>>(),
+                It.IsAny<TimeSpan>(),
+                It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
@@ -126,6 +142,12 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.Id.Should().Be(bookId);
             result.Title.Should().Be("Hello world");
+
+            _cacheServiceMock.Verify(c => c.SetAsync(
+                It.IsAny<string>(),
+                It.IsAny<BookResponseDto>(),
+                It.IsAny<TimeSpan>(),
+                It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
@@ -182,6 +204,8 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.Title.Should().Be("Title");
             result.TotalCopies.Should().Be(1);
+
+            _cacheServiceMock.Verify(c => c.RemoveAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
@@ -304,6 +328,8 @@ namespace Library.Tests.Services
 
             _repositoryMock
                 .Verify(r => r.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+
+            _cacheServiceMock.Verify(c => c.RemoveAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
@@ -359,6 +385,8 @@ namespace Library.Tests.Services
             result.Should().NotBeNull();
             result.Title.Should().Be("Новое название");
             result.TotalCopies.Should().Be(10);
+
+            _cacheServiceMock.Verify(c => c.RemoveAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]

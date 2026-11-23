@@ -4,7 +4,7 @@ using Library.Application.Dto.Author;
 using Library.Application.Exceptions;
 using Library.Application.Services;
 using Library.Domain.Entities;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 using Moq;
 
 namespace Library.Tests.Services

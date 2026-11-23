@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Library.Domain.Dto.Reports;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 

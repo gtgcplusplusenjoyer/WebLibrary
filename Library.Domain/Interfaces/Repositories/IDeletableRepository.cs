@@ -1,6 +1,6 @@
 ﻿using Library.Domain.Entities;
 
-namespace Library.Domain.Interfaces
+namespace Library.Domain.Interfaces.Repositories
 {
     public interface IDeletableRepository<T> where T : BaseEntity
     {

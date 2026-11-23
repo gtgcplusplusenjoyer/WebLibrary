@@ -3,8 +3,8 @@ using Library.Application.Dto.User;
 using Library.Application.Interfaces;
 using Library.Domain.Dto.User;
 using Library.Domain.Entities;
-using Library.Domain.Interfaces;
 using Library.Domain.Interfaces.External;
+using Library.Domain.Interfaces.Repositories;
 
 namespace Library.Application.Services
 {

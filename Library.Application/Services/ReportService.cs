@@ -1,6 +1,6 @@
 ﻿using Library.Application.Interfaces;
 using Library.Domain.Dto.Reports;
-using Library.Domain.Interfaces;
+using Library.Domain.Interfaces.Repositories;
 
 namespace Library.Application.Services
 {
